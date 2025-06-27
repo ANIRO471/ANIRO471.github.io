@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro</title>
+</head>
+<body>
+  <h1>Cadastro</h1>
+  <form id="cadastro">
+    <input id="email" type="email" placeholder="Seu e-mail" required><br>
+    <input id="senha" type="password" placeholder="Sua senha" required><br>
+    <button type="submit">Cadastrar</button>
+  </form>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyDaZHDJh8Jw4U1-QT2TYWAOxk3Xy57Sekk",
+      authDomain: "testgithub-d13a2.firebaseapp.com",
+      databaseURL: "https://testgithub-d13a2-default-rtdb.firebaseio.com",
+      projectId: "testgithub-d13a2",
+      storageBucket: "testgithub-d13a2.appspot.com",
+      messagingSenderId: "847448063225",
+      appId: "1:847448063225:web:1f51f702060de265f6898e"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    document.getElementById("cadastro").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+      createUserWithEmailAndPassword(auth, email, senha)
+        .then(() => { alert("Usuário cadastrado!"); location.href = "login.html"; })
+        .catch(error => alert("Erro: " + error.message));
+    });
+  </script>
+</body>
+</html>
