@@ -123,13 +123,6 @@
   const db = getDatabase(app);
   const storage = getStorage(app);
 
-  // Lista de usuários autorizados
-  const usuariosAutorizados = [
-    "admin1@gmail.com",
-    "davi.dias@example.com"
-    // coloque aqui os e-mails autorizados
-  ];
-
   const logoutBtn = document.getElementById("logout-btn");
   const feedbackList = document.getElementById("feedback-list");
   const galeriaList = document.getElementById("galeria-list");
@@ -148,11 +141,7 @@
       window.location.href = "login.html";
       return;
     }
-    if (!usuariosAutorizados.includes(user.email)) {
-      alert("Usuário não autorizado.");
-      signOut(auth);
-      return;
-    }
+    // Carrega os dados
     carregarFeedbacks();
     carregarGaleria();
   });
@@ -180,7 +169,7 @@
     });
   }
 
-  // Função para excluir feedback
+  // Excluir feedback
   function excluirFeedback(key) {
     if (confirm("Excluir esse feedback?")) {
       remove(ref(db, "feedbacks/" + key))
@@ -204,7 +193,6 @@
           getDownloadURL(item).then(url => {
             const li = document.createElement("li");
 
-            // Mostrar miniatura se imagem ou vídeo
             if(item.name.match(/\.(jpg|jpeg|png|gif)$/i)){
               const img = document.createElement("img");
               img.src = url;
@@ -252,7 +240,7 @@
     }
   }
 
-  // Upload de arquivo para galeria
+  // Upload arquivo
   uploadBtn.addEventListener("click", () => {
     uploadMsg.textContent = "";
     const file = fileInput.files[0];
