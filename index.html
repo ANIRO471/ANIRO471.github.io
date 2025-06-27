@@ -1,1 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barbearia Davi Dias</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #111;
+      color: #fff;
+    }
+    header {
+      background-color: #000;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    header h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: 3rem;
+      color: #e6b800;
+      margin: 0;
+    }
+    header p {
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+    section {
+      padding: 2rem 1rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    .servicos, .contato, .galeria, .feedback, .admin-panel {
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      color: #e6b800;
+      margin-bottom: 1rem;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    ul li::before {
+      content: "✂️ ";
+    }
+    .botao {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #e6b800;
+      color: #000;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .botao:hover {
+      background-color: #fff200;
+    }
+    .galeria-imgs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+    }
+    .galeria-imgs img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .feedback form {
+      display: flex;
+      flex-direction: column;
+    }
+    .feedback input, .feedback textarea {
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+    .feedback button {
+      background-color: #e6b800;
+      color: #000;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .feedback button:hover {
+      background-color: #fff200;
+    }
+    .admin-panel {
+      display: none;
+    }
+    .admin-visible {
+      display: block;
+    }
+    .admin-panel h3 {
+      margin-top: 1rem;
+      color: #fff;
+    }
+    .admin-panel .comentario {
+      background-color: #333;
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 6px;
+    }
+    .admin-panel button {
+      background-color: #b30000;
+      border: none;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .admin-panel button:hover {
+      background-color: #ff1a1a;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: #000;
+      font-size: 0.9rem;
+      color: #777;
+    }
+    a {
+      color: #e6b800;
+      text-decoration: none;
+    }
+  </style>
+  <script>
+    // Simples autenticação para mostrar painel admin
+    function autenticarAdmin() {
+      const senha = prompt("Digite a senha de administrador:");
+      if (senha === "admin123") {
+        document.getElementById("admin-panel").classList.add("admin-visible");
+      } else {
+        alert("Senha incorreta!");
+      }
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Barbearia Davi Dias</h1>
+    <p>Onde o estilo encontra a lâmina</p>
+  </header>
+
+  <section class="servicos">
+    <h2>Serviços</h2>
+    <ul>
+      <li>Corte Masculino</li>
+      <li>Barba com Toalha Quente</li>
+      <li>Sobrancelha</li>
+      <li>Acabamento com Navalha</li>
+      <li>Hidratação Capilar</li>
+      <li>Coloração & Pigmentação</li>
+    </ul>
+  </section>
+
+  <section class="galeria">
+    <h2>Galeria</h2>
+    <div class="galeria-imgs">
+      <img src="https://instagram.fsdu12-1.fna.fbcdn.net/v/t51.2885-15/438035360_122650150809860480_5240394960022052674_n.jpg" alt="Corte 1">
+      <img src="https://instagram.fsdu12-1.fna.fbcdn.net/v/t51.2885-15/437948894_429465372921877_7763602712018861114_n.jpg" alt="Corte 2">
+      <img src="https://instagram.fsdu12-1.fna.fbcdn.net/v/t51.2885-15/437961215_18349030936475584_6444719693716519120_n.jpg" alt="Corte 3">
+    </div>
+  </section>
+
+  <section class="contato">
+    <h2>Contato & Localização</h2>
+    <p>📍 <a href="https://maps.app.goo.gl/sKRHCHrPsqtZmuVH8" target="_blank">Clique aqui para ver no mapa</a></p>
+    <p>📱 <a href="https://www.instagram.com/barbeiro.davi_dias?igsh=emFod3N3cnF0anlr" target="_blank">@barbeiro.davi_dias</a></p>
+    <p>📆 Atendimento com hora marcada</p>
+    <a class="botao" href="https://wa.me/5588992264120" target="_blank">Agende seu horário no WhatsApp</a>
+  </section>
+
+  <section class="feedback">
+    <h2>Deixe seu Feedback</h2>
+    <form action="https://formspree.io/f/maylzzza" method="POST">
+      <input type="text" name="nome" placeholder="Seu nome" required>
+      <textarea name="mensagem" rows="4" placeholder="Escreva sua opinião..." required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
+
+  <section class="admin-panel" id="admin-panel">
+    <h2>Painel do Administrador</h2>
+    <div class="comentario">
+      <strong>João:</strong>
+      <p>Atendimento top! Recomendo demais.</p>
+      <button onclick="this.parentElement.remove()">Excluir</button>
+    </div>
+    <div class="comentario">
+      <strong>Lucas:</strong>
+      <p>Demorou muito para me atender...</p>
+      <button onclick="this.parentElement.remove()">Excluir</button>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Barbearia Davi Dias. Todos os direitos reservados. <br>
+    <a href="#" onclick="autenticarAdmin()">Área do administrador</a>
+  </footer>
+</body>
+</html>
 
