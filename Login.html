@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Barbearia Davi Dias - Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      padding: 2rem;
+      max-width: 400px;
+      margin: auto;
+    }
+    h1 {
+      color: #e6b800;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 4px;
+      border: none;
+      outline: none;
+    }
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+      padding: 0.7rem;
+      background: #e6b800;
+      color: black;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background: #c1a500;
+    }
+    #msg {
+      margin-top: 1rem;
+      min-height: 1.2rem;
+      text-align: center;
+    }
+    a {
+      display: block;
+      margin-top: 1rem;
+      color: #e6b800;
+      text-align: center;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #c1a500;
+    }
+  </style>
+</head>
+<body>
+  <h1>Login</h1>
+  <form id="login-form">
+    <label for="email">Email</label>
+    <input type="email" id="email" required />
+    <label for="senha">Senha</label>
+    <input type="password" id="senha" required />
+    <button type="submit">Entrar</button>
+  </form>
+  <div id="msg"></div>
+  <a href="cadastro.html">Ainda não tem conta? Cadastre-se</a>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDx2IBIdo7_b0P9tMWhkxAvM0ehBa9cYas",
+      authDomain: "testgithub-d13a2.firebaseapp.com",
+      databaseURL: "https://testgithub-d13a2-default-rtdb.firebaseio.com",
+      projectId: "testgithub-d13a2",
+      storageBucket: "testgithub-d13a2.appspot.com",
+      messagingSenderId: "847448063225",
+      appId: "1:847448063225:web:1f51f702060de265f6898e"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+
+    const form = document.getElementById("login-form");
+    const msg = document.getElementById("msg");
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const email = form.email.value.trim();
+      const senha = form.senha.value.trim();
+
+      signInWithEmailAndPassword(auth, email, senha)
+        .then(userCredential => {
+          msg.style.color = 'lightgreen';
+          msg.textContent = "Login realizado! Redirecionando...";
+          setTimeout(() => {
+            window.location.href = "admin.html";
+          }, 1500);
+        })
+        .catch(error => {
+          msg.style.color = '#f88';
+          msg.textContent = "Erro no login: " + error.message;
+        });
+    });
+
+    // Se já estiver logado, redireciona direto
+    onAuthStateChanged(auth, user => {
+      if(user){
+        window.location.href = "admin.html";
+      }
+    });
+  </script>
+</body>
+</html>
