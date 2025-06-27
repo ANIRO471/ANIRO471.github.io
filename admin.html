@@ -1,14 +1,94 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin</title>
+  <meta charset="UTF-8" />
+  <title>Admin - Barbearia Davi Dias</title>
 </head>
 <body>
-  <h1>Admin Dashboard</h1>
-  <p>Bem-vindo! Aqui você poderá gerenciar feedbacks e galeria.</p>
-  <!-- Aqui você pode expandir com funções para excluir ou adicionar -->
+  <h1>Painel do Administrador</h1>
+  <button id="logout">Sair</button>
+  <h2>Feedbacks</h2>
+  <div id="feedbacks"></div>
+
+  <h2>Galeria</h2>
+  <div id="galeria"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getDatabase, ref, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    import { getStorage, ref as sRef, listAll, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDaZHDJh8Jw4U1-QT2TYWAOxk3Xy57Sekk",
+      authDomain: "testgithub-d13a2.firebaseapp.com",
+      databaseURL: "https://testgithub-d13a2-default-rtdb.firebaseio.com",
+      projectId: "testgithub-d13a2",
+      storageBucket: "testgithub-d13a2.appspot.com",
+      messagingSenderId: "847448063225",
+      appId: "1:847448063225:web:1f51f702060de265f6898e"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+    const storage = getStorage(app);
+
+    // Verifica se está logado
+    onAuthStateChanged(auth, user => {
+      if (!user) {
+        alert("Acesso restrito! Faça login.");
+        location.href = "login.html";
+      }
+    });
+
+    // Logout
+    document.getElementById("logout").onclick = () => signOut(auth).then(() => location.href = "login.html");
+
+    // Feedbacks
+    const fbDiv = document.getElementById("feedbacks");
+    onValue(ref(db, "feedbacks"), snapshot => {
+      fbDiv.innerHTML = "";
+      snapshot.forEach(child => {
+        const key = child.key;
+        const fb = child.val();
+        fbDiv.innerHTML += `
+          <div>
+            <strong>${fb.nome}</strong>: ${fb.comentario}
+            <button onclick="excluirFeedback('${key}')">Excluir</button>
+          </div>
+        `;
+      });
+    });
+
+    window.excluirFeedback = (key) => {
+      remove(ref(db, "feedbacks/" + key)).then(() => alert("Feedback excluído!"));
+    };
+
+    // Galeria
+    const galeriaDiv = document.getElementById("galeria");
+    listAll(sRef(storage, "galeria/")).then(res => {
+      galeriaDiv.innerHTML = "";
+      res.items.forEach(item => {
+        getDownloadURL(item).then(url => {
+          const path = item.fullPath;
+          galeriaDiv.innerHTML += `
+            <div>
+              <img src="${url}" width="100">
+              <button onclick="excluirFoto('${path}')">Excluir</button>
+            </div>
+          `;
+        });
+      });
+    });
+
+    window.excluirFoto = (path) => {
+      const fotoRef = sRef(storage, path);
+      deleteObject(fotoRef).then(() => {
+        alert("Foto excluída!");
+        location.reload();
+      });
+    };
+  </script>
 </body>
 </html>
