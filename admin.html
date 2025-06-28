@@ -1,43 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Painel do Administrador</title>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+  <title>Painel do Admin</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+  <script defer src="firebase.js"></script>
+  <script defer src="app.js"></script>
 </head>
 <body>
-  <h1>Painel do Administrador</h1>
-  <button id="logoutBtn">Sair</button>
-
-  <h3><a href="#">Feedbacks</a></h3>
-  <h3><a href="#">Galeria</a></h3>
-
-  <script src="firebase.js"></script>
-  <script>
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        const uid = user.uid;
-        firebase.firestore().collection("users").doc(uid).get()
-          .then(doc => {
-            if (doc.exists && doc.data().role === "admin") {
-              console.log("Acesso permitido");
-            } else {
-              alert("Você não tem permissão de administrador.");
-              window.location.href = "index.html";
-            }
-          });
-      } else {
-        window.location.href = "index.html";
-      }
-    });
-
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      firebase.auth().signOut().then(() => {
-        window.location.href = "index.html";
-      });
-    });
-  </script>
+  <div class="container">
+    <h1>Painel do Administrador</h1>
+    <p>Bem-vindo, admin!</p>
+    <button id="logoutBtn">Sair</button>
+  </div>
 </body>
 </html>
