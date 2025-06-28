@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Barbearia Davi Dias</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
-  <script defer src="firebase.js"></script>
-  <script defer src="app.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login / Cadastro - Barbearia</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script defer src="scripts/auth.js"></script>
 </head>
 <body>
-  <div class="container">
+  <main class="container">
     <h1>Barbearia Davi Dias</h1>
 
-    <div class="form">
-      <h2>🔑 Login</h2>
-      <input type="email" id="loginEmail" placeholder="Email">
-      <input type="password" id="loginPassword" placeholder="Senha">
-      <button id="loginBtn">Entrar</button>
-    </div>
+    <div class="auth-container">
 
-    <div class="form">
-      <h2>📝 Cadastro</h2>
-      <input type="email" id="registerEmail" placeholder="Email">
-      <input type="password" id="registerPassword" placeholder="Senha">
-      <button id="registerBtn">Cadastrar</button>
+      <form id="login-form" class="auth-form">
+        <h2>Entrar</h2>
+        <input type="email" id="login-email" placeholder="Email" required />
+        <input type="password" id="login-password" placeholder="Senha" required />
+        <button type="submit">Entrar</button>
+        <p>Não tem conta? <a href="#" id="show-register">Cadastre-se</a></p>
+        <p class="error" id="login-error"></p>
+      </form>
+
+      <form id="register-form" class="auth-form hidden">
+        <h2>Cadastrar</h2>
+        <input type="text" id="register-name" placeholder="Nome" required />
+        <input type="email" id="register-email" placeholder="Email" required />
+        <input type="password" id="register-password" placeholder="Senha" required minlength="6" />
+        <button type="submit">Cadastrar</button>
+        <p>Já tem conta? <a href="#" id="show-login">Faça login</a></p>
+        <p class="error" id="register-error"></p>
+      </form>
+
     </div>
-  </div>
+  </main>
 </body>
 </html>
