@@ -1,26 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <title>Barbearia Davi Dias</title>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+  <script defer src="firebase.js"></script>
+  <script defer src="app.js"></script>
 </head>
 <body>
-  <h1>Barbearia Davi Dias</h1>
+  <div class="container">
+    <h1>Barbearia Davi Dias</h1>
 
-  <h2>Login</h2>
-  <input type="email" id="loginEmail" placeholder="Email">
-  <input type="password" id="loginPassword" placeholder="Senha">
-  <button id="loginBtn">Entrar</button>
+    <div class="form">
+      <h2>🔑 Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email">
+      <input type="password" id="loginPassword" placeholder="Senha">
+      <button id="loginBtn">Entrar</button>
+    </div>
 
-  <h2>Cadastro</h2>
-  <input type="email" id="registerEmail" placeholder="Email">
-  <input type="password" id="registerPassword" placeholder="Senha">
-  <button id="registerBtn">Cadastrar</button>
-
-  <script src="firebase.js"></script>
-  <script src="app.js"></script>
+    <div class="form">
+      <h2>📝 Cadastro</h2>
+      <input type="email" id="registerEmail" placeholder="Email">
+      <input type="password" id="registerPassword" placeholder="Senha">
+      <button id="registerBtn">Cadastrar</button>
+    </div>
+  </div>
 </body>
 </html>
