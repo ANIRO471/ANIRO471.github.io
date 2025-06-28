@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const feedbackList = document.getElementById('feedback-list');
 
+  const timestamp: firebase.firestore.FieldValue.serverTimestamp()
+  
   function starRating(rating) {
     // Retorna as estrelas preenchidas 🌟 e vazias ☆
     const maxStars = 5;
