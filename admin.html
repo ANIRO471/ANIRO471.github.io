@@ -1,20 +1,43 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Painel do Admin</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
-  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
-  <script defer src="firebase.js"></script>
-  <script defer src="app.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Painel Administrativo</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script defer src="scripts/admin.js"></script>
 </head>
 <body>
-  <div class="container">
+  <header>
     <h1>Painel do Administrador</h1>
-    <p>Bem-vindo, admin!</p>
-    <button id="logoutBtn">Sair</button>
-  </div>
+    <button id="logout-btn" title="Sair do painel">Logout</button>
+  </header>
+
+  <section>
+    <h2>Feedbacks</h2>
+    <div id="feedback-list" class="list-container"></div>
+  </section>
+
+  <section>
+    <h2>Galeria</h2>
+    <input type="file" id="gallery-upload" multiple accept="image/*" />
+    <button id="upload-gallery-btn">Enviar Fotos</button>
+    <div id="gallery-list" class="gallery-container"></div>
+  </section>
+
+  <section>
+    <h2>Mural dos Barbeiros</h2>
+    <form id="barber-form">
+      <input type="text" id="barber-name" placeholder="Nome do Barbeiro" required />
+      <input type="url" id="barber-photo" placeholder="URL da Foto (opcional)" />
+      <button type="submit">Adicionar / Atualizar</button>
+    </form>
+    <div id="barber-list" class="barber-container"></div>
+  </section>
 </body>
 </html>
