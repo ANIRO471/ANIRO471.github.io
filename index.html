@@ -1,14 +1,26 @@
-
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Barbearia Davi Dias</title>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
 </head>
 <body>
   <h1>Barbearia Davi Dias</h1>
-  <a href="login.html">🔑 Login</a> |
-  <a href="cadastro.html">📝 Cadastro</a>
+
+  <h2>Login</h2>
+  <input type="email" id="loginEmail" placeholder="Email">
+  <input type="password" id="loginPassword" placeholder="Senha">
+  <button id="loginBtn">Entrar</button>
+
+  <h2>Cadastro</h2>
+  <input type="email" id="registerEmail" placeholder="Email">
+  <input type="password" id="registerPassword" placeholder="Senha">
+  <button id="registerBtn">Cadastrar</button>
+
+  <script src="firebase.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
