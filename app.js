@@ -1,5 +1,8 @@
 // app.js
 
+// SEU UID fixo de admin
+const adminUID = "oUGyxwwemggeIdFtlp49Xe0mvSP2";
+
 // LOGIN
 document.getElementById("loginBtn")?.addEventListener("click", () => {
   const email = document.getElementById("loginEmail").value;
@@ -9,15 +12,14 @@ document.getElementById("loginBtn")?.addEventListener("click", () => {
     .then(cred => {
       const uid = cred.user.uid;
 
-      // VERIFICAR PAPEL
-      db.collection("users").doc(uid).get().then(doc => {
-        if (doc.exists && doc.data().role === "admin") {
-          window.location.href = "admin.html";
-        } else {
-          alert("Login feito!");
-          // Redireciona se quiser para outra página de usuário comum
-        }
-      });
+      if (uid === adminUID) {
+        // Se for o admin, manda pro painel
+        window.location.href = "admin.html";
+      } else {
+        // Senão, redireciona pra home ou faz outra lógica
+        alert("Login feito! Mas você não é admin.");
+        window.location.href = "index.html";
+      }
     })
     .catch(err => {
       alert(err.message);
@@ -33,7 +35,7 @@ document.getElementById("registerBtn")?.addEventListener("click", () => {
     .then(cred => {
       return db.collection("users").doc(cred.user.uid).set({
         email: email,
-        role: "user"
+        role: cred.user.uid === adminUID ? "admin" : "user"
       });
     })
     .then(() => {
@@ -44,17 +46,13 @@ document.getElementById("registerBtn")?.addEventListener("click", () => {
     });
 });
 
-// VERIFICA NO PAINEL ADMIN
+// PROTEÇÃO NO PAINEL ADMIN
 if (window.location.pathname.includes("admin.html")) {
   auth.onAuthStateChanged(user => {
-    if (user) {
-      db.collection("users").doc(user.uid).get().then(doc => {
-        if (!doc.exists || doc.data().role !== "admin") {
-          alert("Acesso negado. Você não é admin.");
-          window.location.href = "index.html";
-        }
-      });
+    if (user && user.uid === adminUID) {
+      console.log("Admin autenticado");
     } else {
+      alert("Acesso negado! Você não é o admin.");
       window.location.href = "index.html";
     }
   });
