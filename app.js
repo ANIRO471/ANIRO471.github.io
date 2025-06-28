@@ -1,25 +1,23 @@
 // app.js
 
 // LOGIN
-document.getElementById("loginBtn").addEventListener("click", () => {
+document.getElementById("loginBtn")?.addEventListener("click", () => {
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
 
-  firebase.auth().signInWithEmailAndPassword(email, password)
+  auth.signInWithEmailAndPassword(email, password)
     .then(cred => {
-      // Checa papel
       const uid = cred.user.uid;
-      firebase.firestore().collection("users").doc(uid).get()
-        .then(doc => {
-          if (doc.exists) {
-            if (doc.data().role === "admin") {
-              window.location.href = "admin.html";
-            } else {
-              alert("Login realizado com sucesso!");
-              // Aqui você pode redirecionar para uma área de usuário comum
-            }
-          }
-        });
+
+      // VERIFICAR PAPEL
+      db.collection("users").doc(uid).get().then(doc => {
+        if (doc.exists && doc.data().role === "admin") {
+          window.location.href = "admin.html";
+        } else {
+          alert("Login feito!");
+          // Redireciona se quiser para outra página de usuário comum
+        }
+      });
     })
     .catch(err => {
       alert(err.message);
@@ -27,22 +25,43 @@ document.getElementById("loginBtn").addEventListener("click", () => {
 });
 
 // CADASTRO
-document.getElementById("registerBtn").addEventListener("click", () => {
+document.getElementById("registerBtn")?.addEventListener("click", () => {
   const email = document.getElementById("registerEmail").value;
   const password = document.getElementById("registerPassword").value;
 
-  firebase.auth().createUserWithEmailAndPassword(email, password)
+  auth.createUserWithEmailAndPassword(email, password)
     .then(cred => {
-      // Salva no Firestore
-      return firebase.firestore().collection("users").doc(cred.user.uid).set({
+      return db.collection("users").doc(cred.user.uid).set({
         email: email,
-        role: "user" // Por padrão, todo mundo é user
+        role: "user"
       });
     })
     .then(() => {
-      alert("Cadastrado com sucesso!");
+      alert("Cadastrado com sucesso! Faça login.");
     })
     .catch(err => {
       alert(err.message);
     });
 });
+
+// VERIFICA NO PAINEL ADMIN
+if (window.location.pathname.includes("admin.html")) {
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      db.collection("users").doc(user.uid).get().then(doc => {
+        if (!doc.exists || doc.data().role !== "admin") {
+          alert("Acesso negado. Você não é admin.");
+          window.location.href = "index.html";
+        }
+      });
+    } else {
+      window.location.href = "index.html";
+    }
+  });
+
+  document.getElementById("logoutBtn")?.addEventListener("click", () => {
+    auth.signOut().then(() => {
+      window.location.href = "index.html";
+    });
+  });
+}
